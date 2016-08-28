@@ -1,6 +1,6 @@
 <?php
 
-namespace miaoxing\build;
+namespace miaoxing\build\services;
 
 use miaoxing\plugin\BaseService;
 use Wei\Http;
@@ -14,9 +14,11 @@ use Wei\View;
  */
 class TravisNotification extends BaseService
 {
-    protected $token;
+    protected $travisToken;
 
     protected $githubToken;
+
+    protected $githubRepo;
 
     protected $issueLabels = ['bug'];
 
@@ -26,16 +28,16 @@ class TravisNotification extends BaseService
         'Still Failing'
     ];
 
-    public function getToken()
+    public function getTravisToken()
     {
-        return $this->token;
+        return $this->travisToken;
     }
 
     public function isValidRequest()
     {
         $repoSlug = $this->request->getServer('HTTP_TRAVIS_REPO_SLUG');
         $authorization = $this->request->getServer('HTTP_AUTHORIZATION');
-        $digest = hash('sha256', $repoSlug . $this->getToken());
+        $digest = hash('sha256', $repoSlug . $this->getTravisToken());
         return $digest == $authorization;
     }
 
@@ -46,16 +48,22 @@ class TravisNotification extends BaseService
 
     public function createIssue(array $payload)
     {
-        $repo = $payload['repository']['owner_name'] . '/' . $payload['repository']['name'];
-        $title = $payload['status'] . ': ' . $payload['message'];
+        $title = $payload['status_message'] . ': ' . $payload['message'];
         $body = $this->view->render('@build/travisNotifications/issue-tpl.php', ['payload' => $payload]);
         $assignees = $payload['committer_name'];
+
+        if ($this->githubRepo) {
+            $repo = $this->githubRepo;
+        } else {
+            $repo = $payload['repository']['owner_name'] . '/' . $payload['repository']['name'];
+        }
 
         $http = $this->http([
             'url' => 'https://api.github.com/repos/' . $repo . '/issues',
             'method' => 'post',
             'dataType' => 'json',
             'throwException' => false,
+            'userAgent' => 'Wei/0.9.X',
             'headers' => [
                 'Authorization' => 'token ' . $this->githubToken,
             ],
