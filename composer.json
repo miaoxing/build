@@ -1,0 +1,15 @@
+{
+  "name": "miaoxing/build",
+  "keywords": [
+    "miaoxing", "build"
+  ],
+  "license": "MIT",
+  "require": {
+    "miaoxing/plugin": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "miaoxing\\build\\": ""
+    }
+  }
+}
