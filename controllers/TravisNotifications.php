@@ -26,13 +26,17 @@ class TravisNotifications extends BaseController
             return $this->response('Build ' . $payload['status']);
         }
 
+        if (!wei()->cache->add('travisPayload:' . $payload['id'], true, 86400)) {
+            return $this->response('Payload ' . $payload['id'] . ' processed');
+        }
+
         $http = $notify->createIssue($payload);
         return $this->response($http->getResponseText(), $http->getCurlInfo(CURLINFO_HTTP_CODE));
     }
 
     protected function response($content, $status = 200)
     {
-        $level = in_array($status, [200, 401]) ? 'info' : 'warning';
+        $level = in_array($status, [200, 201, 401]) ? 'info' : 'warning';
         $this->logger->log($level, $content);
 
         $this->response->setContent($content)->setStatusCode($status);

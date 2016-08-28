@@ -62,7 +62,6 @@ class TravisNotification extends BaseService
             'url' => 'https://api.github.com/repos/' . $repo . '/issues',
             'method' => 'post',
             'dataType' => 'json',
-            'throwException' => false,
             'userAgent' => 'Wei/0.9.X',
             'headers' => [
                 'Authorization' => 'token ' . $this->githubToken,
