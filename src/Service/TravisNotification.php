@@ -1,6 +1,6 @@
 <?php
 
-namespace miaoxing\build\services;
+namespace Miaoxing\Build\Service;
 
 use miaoxing\plugin\BaseService;
 use Wei\Http;

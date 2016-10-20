@@ -1,6 +1,6 @@
 <?php
 
-namespace miaoxing\build;
+namespace Miaoxing\Build;
 
 use miaoxing\plugin\BasePlugin;
 

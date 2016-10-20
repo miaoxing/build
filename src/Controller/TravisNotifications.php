@@ -1,8 +1,8 @@
 <?php
 
-namespace miaoxing\build\controllers;
+namespace Miaoxing\Build\Controller;
 
-use miaoxing\build\services\TravisNotification;
+use Miaoxing\Build\Service\TravisNotification;
 use Wei\BaseController;
 use Wei\Logger;
 use Wei\Request;
