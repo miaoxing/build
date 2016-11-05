@@ -11,5 +11,10 @@
     "psr-4": {
       "Miaoxing\\Build\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MiaoxingTest\\Build\\": "tests"
+    }
   }
 }
