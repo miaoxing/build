@@ -40,3 +40,22 @@
 </div>
 ```
 
+---
+
+问题3: `The method indexAction() has a Cyclomatic Complexity of 17. The configured cyclomatic complexity threshold is 15.`
+
+原因: 方法的条件复杂度过高,一般是存在过多的`if`, `while`, `for`和`case`, `?`
+
+解决: 拆分为多个小方法,如较独立的功能拆分为getXxx,queryXxx,handleXxx
+
+参考:
+
+1. https://phpmd.org/rules/codesize.html#cyclomaticcomplexity
+
+---
+
+问题4: `The method indexAction() has 139 lines of code. Current threshold is set to 100. Avoid really long methods.`
+
+原因: 方法代码行数过多
+
+解决: 拆分为多个小方法,如较独立的功能拆分为getXxx,queryXxx,handleXxx
