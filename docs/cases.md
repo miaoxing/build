@@ -59,3 +59,21 @@
 原因: 方法代码行数过多
 
 解决: 拆分为多个小方法,如较独立的功能拆分为getXxx,queryXxx,handleXxx
+
+---
+
+问题5: `Assignments must be the first block of code on a line (Squiz.PHP.DisallowMultipleAssignments.Found)`
+
+原因: 变量赋值不是在一行代码的第一部分
+
+```php
+$this->user || $this->user = wei()->user()->findOrInitById($this['userId']);
+```
+
+解决: 改为完整的条件语句,使逻辑更清晰
+
+```php
+if (!$this->user) {
+    $this->user = wei()->user()->findOrInitById($this['userId']);
+}
+```
