@@ -77,3 +77,25 @@ if (!$this->user) {
     $this->user = wei()->user()->findOrInitById($this['userId']);
 }
 ```
+
+----
+
+问题6: htmllint检查JS模板文件时,如xxx/adminOrdersShowItem.php,会出现大量的无意义提示
+
+如
+
+```
+xxx/adminOrdersShowItem.php: line 2, col 24, the `foundGroupBuying` attribute is not double quoted
+xxx/adminOrdersShowItem.php: line 2, col 4, attribute names must match the format: dash
+xxx/adminOrdersShowItem.php: line 2, col 30, attribute values cannot be empty
+xxx/adminOrdersShowItem.php: line 10, col 54, the `!` attribute is not double quoted
+```
+
+原因: 模板文件中的`<%`导致html标签解析错误
+
+解决: 先在模板文件头部增加配置,跳过检查.待以后升级模板引擎或配置,以支持检查
+
+```
+<!-- htmllint preset="none" -->
+<!-- htmllint tag-name-match="false" -->
+```
