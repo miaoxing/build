@@ -21,13 +21,18 @@ before_install:
   - phpenv config-add tests/travis.ini
 
 install:
-  - composer require satooshi/php-coveralls --no-interaction
+  - composer install --no-interaction
+  - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+  - git clone https://github.com/miaoxing/coding-standards.git coding-standards
+  - phpcs --config-set installed_paths coding-standards
 
 script:
+  - bash build/build.sh
   - phpunit --verbose --stderr --coverage-clover build/logs/clover.xml
 
 after_success:
-  - travis_retry php vendor/bin/coveralls -v
+  - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+  - travis_retry php coveralls.phar -v --exclude-no-stmt
 
 notifications:
   webhooks:
