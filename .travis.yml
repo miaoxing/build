@@ -17,6 +17,10 @@ matrix:
 services:
   - memcached
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_install:
   - phpenv config-add tests/travis.ini
 
