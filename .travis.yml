@@ -24,7 +24,7 @@ install:
   - composer install --no-interaction
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
   - git clone https://github.com/miaoxing/coding-standards.git coding-standards
-  - phpcs --config-set installed_paths coding-standards
+  - php phpcs.phar --config-set installed_paths coding-standards
 
 script:
   - bash build/build.sh
