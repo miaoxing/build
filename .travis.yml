@@ -25,8 +25,8 @@ before_install:
   - phpenv config-add tests/travis.ini
 
 install:
-  - composer require miaoxing/coding-standards --no-interaction
-  - vendor/bin/phpcs --config-set installed_paths vendor/miaoxing/coding-standards
+  - bash build/install.sh
+  - composer install --no-interaction
 
 script:
   - bash build/build.sh
