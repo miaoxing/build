@@ -2,9 +2,11 @@
 
 source "${BASH_SOURCE[0]%/*}/base.sh"
 
+mkdir reports
+
 # 1. 生成不能处理的文件的报告
-report="build/reports/phpcs.txt"
-command="php phpcs.phar --report-file=${report} ."
+report="reports/phpcs.txt"
+command="vendor/bin/phpcs --report-file=${report} ."
 ${command}
 code=$?
 
