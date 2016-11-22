@@ -3,7 +3,7 @@
 source "${BASH_SOURCE[0]%/*}/base.sh"
 
 # 1. 生成不能处理的文件的报告
-report="reports/phpcs.txt"
+report="build/reports/phpcs.txt"
 command="php phpcs.phar --report-file=${report} ."
 ${command}
 code=$?
