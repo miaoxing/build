@@ -21,10 +21,8 @@ before_install:
   - phpenv config-add tests/travis.ini
 
 install:
-  - composer install --no-interaction
-  - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-  - git clone https://github.com/miaoxing/coding-standards.git coding-standards
-  - php phpcs.phar --config-set installed_paths coding-standards
+  - composer require miaoxing/coding-standards --no-interaction
+  - vendor/bin/phpcs --config-set installed_paths vendor/miaoxing/coding-standards
 
 script:
   - bash build/build.sh
