@@ -27,11 +27,9 @@ cache:
 
 before_install:
   - phpenv config-add tests/travis.ini
+  - nvm install node
 
 install:
-  - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
-  - bash -c "nvm use $NODE_JS_VERSION" || true
-  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - bash build/install.sh
   - export PATH=~/.composer/vendor/bin:$PATH
   - composer install --no-interaction
