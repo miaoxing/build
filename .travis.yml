@@ -8,9 +8,6 @@ php:
   - hhvm
   - nightly
 
-env:
-  - NODE_JS_VERSION=5
-
 matrix:
   fast_finish: true
   allow_failures:
@@ -35,7 +32,6 @@ install:
   - composer install --no-interaction
 
 script:
-  - phpunit --verbose --stderr --coverage-clover build/logs/clover.xml
   - bash build/build-travis.sh
 
 after_success:
