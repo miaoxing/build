@@ -2,9 +2,11 @@
 
 source "${BASH_SOURCE[0]%/*}/base.sh"
 
-# 1. 生成不能处理的文件的报告
+# 1. 执行检查
 report="reports/phpcs.txt"
 command="phpcs --report-file=${report} ."
+echo "${command}";
+
 ${command}
 code=$?
 

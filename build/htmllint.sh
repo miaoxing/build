@@ -4,7 +4,9 @@ source "${BASH_SOURCE[0]%/*}/base.sh"
 
 # 1. 执行命令
 report="reports/htmllint.txt"
-command="htmllint htmllint resources/views/*/*"
+command="htmllint resources/views/*/*"
+echo "${command}";
+
 ${command} | tee ${report}
 
 # 3. 调整报告

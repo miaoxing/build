@@ -7,6 +7,8 @@ report="reports/phpmd.txt"
 command="phpmd . text phpmd.xml \
 --reportfile-text ${report} \
 --ignore-violations-on-exit"
+echo "${command}";
+
 ${command}
 code=$?
 

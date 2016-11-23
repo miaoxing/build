@@ -10,6 +10,8 @@ fi
 # 2. 执行命令
 report="reports/csslint.txt"
 command="csslint public"
+echo "${command}";
+
 ${command} | tee ${report}
 
 # 3. 调整报告
