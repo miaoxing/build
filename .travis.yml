@@ -35,7 +35,7 @@ install:
   - composer install --no-interaction
 
 script:
-  - bash build/build.sh
+  - bash build/build-travis.sh
   - phpunit --verbose --stderr --coverage-clover build/logs/clover.xml
 
 after_success:

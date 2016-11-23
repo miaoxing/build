@@ -13,7 +13,7 @@ echo "${command}";
 ${command}
 code=$?
 
-# 3. 附加命令到报告中
+# 2. 附加命令到报告中
 append_report "${report}" "${command}"
 
 exit ${code}
