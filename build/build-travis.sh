@@ -58,4 +58,4 @@ data="{\"title\":\"$title\",\"body\":\"$body\",\"assignees\":[\"$assignee\"],\"l
 echo "$data"
 
 curl -i -H "Authorization: token $GITHUB_ISSUE_NOTIFY_TOKEN" -d "$data" \
-"https://api.github.com/repos/twinh/miaostar/issues"
+"https://api.github.com/repos/twinh/test/issues"
