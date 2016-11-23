@@ -9,7 +9,7 @@ composer global config repositories.phpmd-extension git https://github.com/mi-sc
 # Install PHP-CS-Fixer
 curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v1.12.1/php-cs-fixer.phar -o php-cs-fixer \
     && chmod a+x php-cs-fixer \
-    && mv php-cs-fixer /usr/local/bin/php-cs-fixer
+    && mv php-cs-fixer ~/.composer/vendor/bin/php-cs-fixer
 
 # Install PHP_CodeSniffer, Miaoxing Coding standards
 composer global require miaoxing/coding-standards:0.9.1 \
