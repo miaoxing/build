@@ -26,6 +26,7 @@ before_install:
 
 install:
   - bash build/install.sh
+  - export PATH=~/.composer/vendor/bin:$PATH
   - composer install --no-interaction
 
 script:
