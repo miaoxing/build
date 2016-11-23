@@ -6,6 +6,7 @@ source "${BASH_SOURCE[0]%/*}/base.sh"
 report="reports/phpmd.txt"
 command="phpmd . text phpmd.xml \
 --reportfile-text ${report} \
+--exclude vendor \
 --ignore-violations-on-exit"
 echo "${command}";
 
