@@ -4,11 +4,14 @@
 mkdir -p reports
 
 bash "${BASH_SOURCE[0]%/*}/phpunit.sh"
-bash "${BASH_SOURCE[0]%/*}/phpcs.sh"
-bash "${BASH_SOURCE[0]%/*}/phpmd.sh"
-bash "${BASH_SOURCE[0]%/*}/csslint.sh"
-bash "${BASH_SOURCE[0]%/*}/eslint.sh"
-bash "${BASH_SOURCE[0]%/*}/htmllint.sh"
+
+if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then
+  bash "${BASH_SOURCE[0]%/*}/phpcs.sh"
+  bash "${BASH_SOURCE[0]%/*}/phpmd.sh"
+  bash "${BASH_SOURCE[0]%/*}/csslint.sh"
+  bash "${BASH_SOURCE[0]%/*}/eslint.sh"
+  bash "${BASH_SOURCE[0]%/*}/htmllint.sh"
+fi
 
 # 2. 合并错误报告
 error_file="error.txt"
@@ -29,7 +32,7 @@ fi
 
 # Build issue title
 message=$(git log -1 --pretty=%B "$TRAVIS_COMMIT")
-title="【$(date +%y-%m-%d)】Build failed: $message"
+title="【$(date +%y-%m-%d)】Build failed: $message - $TRAVIS_PHP_VERSION"
 assignee=$(git log -1 --pretty=%cn "$TRAVIS_COMMIT")
 body="Status: failed
 
@@ -59,5 +62,5 @@ body=${body//
 data="{\"title\":\"$title\",\"body\":\"$body\",\"assignees\":[\"$assignee\"],\"labels\":[\"task\"]}"
 echo "$data"
 
-curl -i -H "Authorization: token $GITHUB_ISSUE_NOTIFY_TOKEN" -d "$data" \
+curl -H "Authorization: token $GITHUB_ISSUE_NOTIFY_TOKEN" -d "$data" \
 "https://api.github.com/repos/twinh/test/issues"

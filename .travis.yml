@@ -27,7 +27,7 @@ before_install:
   - nvm install node
 
 install:
-  - bash build/install.sh
+  - bash build/install-travis.sh
   - export PATH=~/.composer/vendor/bin:$PATH
   - composer install --no-interaction
 
