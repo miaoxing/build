@@ -152,4 +152,9 @@ b. 手机有11位数字,等于6个文本宽度,使用t-6
 
 #### 问题9
 
+phpcs检测到的问题是由外部引起的,如外部的类
+
+解决: 使用特定的标识屏蔽问题
+
+https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
 
