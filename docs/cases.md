@@ -157,4 +157,5 @@ phpcs检测到的问题是由外部引起的,如外部的类
 解决: 使用特定的标识屏蔽问题
 
 https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
+https://github.com/CSSLint/csslint/wiki/Ignoring-parts-of-CSS-during-linting
 
