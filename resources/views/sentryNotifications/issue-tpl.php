@@ -26,6 +26,7 @@ Query: <?= $http['query_string'] ?: '-' ?>
 
 View the event: <?= $payload['url'] ?>
 
+
 ---
 
 **关闭issue后记得关闭sentry的event**
