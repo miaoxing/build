@@ -53,7 +53,7 @@ class SentryNotification extends BaseService
             return $this->err('Invalid payload');
         }
 
-        $title = sprintf('[%s]告警: %s', date('y-m-d'), $payload['message']);
+        $title = sprintf('[%s]Alert: %s', date('y-m-d'), $payload['message']);
 
         $http = $payload['event']['sentry.interfaces.Http'];
         $user = $payload['event']['sentry.interfaces.User'];

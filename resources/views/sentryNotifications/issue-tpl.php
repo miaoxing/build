@@ -29,4 +29,4 @@ View the event: <?= $payload['url'] ?>
 
 ---
 
-**关闭issue后记得关闭sentry的event**
+处理方法参照文档 **"线上告警处理指南V2"**
