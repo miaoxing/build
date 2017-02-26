@@ -4,6 +4,7 @@ namespace Miaoxing\Build\Service;
 
 use miaoxing\plugin\BaseService;
 use Wei\Http;
+use Wei\Logger;
 use Wei\Request;
 use Wei\RetTrait;
 use Wei\View;
@@ -12,6 +13,7 @@ use Wei\View;
  * @method Http http(array $options)
  * @property Request $request
  * @property View $view
+ * @property Logger $logger
  */
 class SentryNotification extends BaseService
 {
@@ -34,9 +36,18 @@ class SentryNotification extends BaseService
         $value = $payload['event']['sentry.interfaces.Exception']['values'][0];
         list($file, $line) = explode(':', $value['module']);
 
-        exec(sprintf('git log -1 --pretty=%%an -L %s,%s:%s', $line, $line, $file), $output);
-        if (isset($output[0])) {
-            return $output[0];
+        $file = substr($file, strlen($payload['event']['sentry.interfaces.Http']['env']['DOCUMENT_ROOT']) + 1);
+        $result = exec(sprintf('git blame -L%s,+1 %s', $line, $file), $output, $return);
+        if (!$result) {
+            $this->logger->debug('Invalid git blame result', compact('output', 'return', 'result', 'line', 'file'));
+
+            return $this->assignees;
+        }
+
+        // ^f19ba07 xxx/xxx.php (author 0000-00-00 00:00:00 +0800 xxx
+        preg_match('/\((.+?) /', $result, $matches);
+        if (isset($matches[1])) {
+            return $matches[1];
         }
 
         return $this->assignees;
