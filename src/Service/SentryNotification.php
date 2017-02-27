@@ -27,6 +27,10 @@ class SentryNotification extends BaseService
 
     protected $issueLabels = ['bug'];
 
+    protected $validAssignees = [];
+
+    protected $ignorePaths = [];
+
     protected function guestAssignees(array $payload)
     {
         if (!isset($payload['event']['sentry.interfaces.Exception'])) {
@@ -37,16 +41,25 @@ class SentryNotification extends BaseService
         list($file, $line) = explode(':', $value['module']);
 
         $file = substr($file, strlen($payload['event']['sentry.interfaces.Http']['env']['DOCUMENT_ROOT']) + 1);
+        foreach ($this->ignorePaths as $path) {
+            if (substr($file, 0, strlen($path)) == $path) {
+                return $this->assignees;
+            }
+        }
+
+        // TODO webhook路径和项路径不一致
+        $file = '../' . $file;
+
         $result = exec(sprintf('git blame -L%s,+1 %s', $line, $file), $output, $return);
         if (!$result) {
-            $this->logger->debug('Invalid git blame result', compact('output', 'return', 'result', 'line', 'file'));
+            $this->logger->info('Invalid git blame result', compact('output', 'return', 'result', 'line', 'file'));
 
             return $this->assignees;
         }
 
         // ^f19ba07 xxx/xxx.php (author 0000-00-00 00:00:00 +0800 xxx
         preg_match('/\((.+?) /', $result, $matches);
-        if (isset($matches[1])) {
+        if (isset($matches[1]) && $this->isAssignerValid($matches[1])) {
             return $matches[1];
         }
 
@@ -63,6 +76,8 @@ class SentryNotification extends BaseService
         if (!$payload || !isset($payload['message'])) {
             return $this->err('Invalid payload');
         }
+
+        $this->logger->info('Received payload', ['payload' => $payload]);
 
         $title = sprintf('[%s]Alert: %s', date('y-m-d'), $payload['message']);
 
@@ -98,5 +113,14 @@ class SentryNotification extends BaseService
         } else {
             return $this->err(['http' => $http]);
         }
+    }
+
+    protected function isAssignerValid($assignee)
+    {
+        if (!$this->validAssignees) {
+            return true;
+        }
+
+        return in_array($assignee, $this->validAssignees);
     }
 }

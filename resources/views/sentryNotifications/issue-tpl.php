@@ -13,7 +13,7 @@ Query: <?= $http['query_string'] ?: '-' ?>
 ### User
 
 <?php foreach ($user as $key => $value) : ?>
-<?= $key == 'id' ? 'ID' : ucfirst($key) ?>: <?= $value , "\n" ?>
+<?= ucwords(strtr($key, '_', ' ')) ?>: <?= is_scalar($value) ? $value : json_encode($value) , "\n" ?>
 <?php endforeach ?>
 
 <?php if ($payload['event']['extra']) : ?>
