@@ -45,6 +45,7 @@ class SentryNotification extends BaseService
             if (substr($file, 0, strlen($path)) == $path) {
                 return $this->assignees;
             }
+            $this->logger->info('Ignore assignee path', ['path' => $path, 'file' => $file]);
         }
 
         // TODO webhook路径和项路径不一致
@@ -58,6 +59,7 @@ class SentryNotification extends BaseService
         }
 
         // ^f19ba07 xxx/xxx.php (author 0000-00-00 00:00:00 +0800 xxx
+        $this->logger->info('Get git blame result', ['result' => $result]);
         preg_match('/\((.+?) /', $result, $matches);
         if (isset($matches[1]) && $this->isAssignerValid($matches[1])) {
             return $matches[1];
