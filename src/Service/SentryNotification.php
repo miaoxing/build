@@ -35,6 +35,7 @@ class SentryNotification extends BaseService
     {
         if (!isset($payload['event']['sentry.interfaces.Exception'])) {
             $this->logger->info('Not exception, cant detect assignee');
+
             return $this->assignees;
         }
 
@@ -46,6 +47,7 @@ class SentryNotification extends BaseService
         foreach ($this->ignorePaths as $path) {
             if (substr($file, 0, strlen($path)) == $path) {
                 $this->logger->info('Ignore assignee path', ['path' => $path, 'file' => $file]);
+
                 return $this->assignees;
             }
         }
