@@ -34,21 +34,23 @@ class SentryNotification extends BaseService
     protected function guestAssignees(array $payload)
     {
         if (!isset($payload['event']['sentry.interfaces.Exception'])) {
+            $this->logger->info('Not exception, cant detect assignee');
             return $this->assignees;
         }
 
         $value = $payload['event']['sentry.interfaces.Exception']['values'][0];
         list($file, $line) = explode(':', $value['module']);
 
-        $file = substr($file, strlen($payload['event']['sentry.interfaces.Http']['env']['DOCUMENT_ROOT']) + 1);
+        $documentRoot = $this->getDocumentRoot($payload['event']['sentry.interfaces.Http']['env']);
+        $file = substr($file, strlen($documentRoot) + 1);
         foreach ($this->ignorePaths as $path) {
             if (substr($file, 0, strlen($path)) == $path) {
+                $this->logger->info('Ignore assignee path', ['path' => $path, 'file' => $file]);
                 return $this->assignees;
             }
-            $this->logger->info('Ignore assignee path', ['path' => $path, 'file' => $file]);
         }
 
-        // TODO webhook路径和项路径不一致
+        // TODO webhook路径和项目路径不一致
         $file = '../' . $file;
 
         $result = exec(sprintf('git blame -L%s,+1 %s', $line, $file), $output, $return);
@@ -69,17 +71,28 @@ class SentryNotification extends BaseService
     }
 
     /**
+     * @param array $env
+     * @return mixed
+     */
+    protected function getDocumentRoot(array $env)
+    {
+        // Cli环境下没有DOCUMENT_ROOT有PWD
+        return $env['DOCUMENT_ROOT'] ?: $env['PWD'];
+    }
+
+    /**
      * @param string $payload
      * @return array
      */
     public function createIssue($payload)
     {
+        $rawPayload = $payload;
         $payload = json_decode($payload, true);
         if (!$payload || !isset($payload['message'])) {
             return $this->err('Invalid payload');
         }
 
-        $this->logger->info('Received payload', ['payload' => $payload]);
+        $this->logger->info('Received payload', ['rawPayload' => $rawPayload]);
 
         $title = sprintf('[%s]Alert: %s', date('y-m-d'), $payload['message']);
 
