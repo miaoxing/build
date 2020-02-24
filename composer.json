@@ -1,11 +1,13 @@
 {
   "name": "miaoxing/build",
+  "type": "miaoxing-plugin",
+  "description": "Miaoxing Build Plugin",
   "keywords": [
-    "miaoxing", "build"
+    "miaoxing",
+    "build"
   ],
   "license": "MIT",
   "require": {
-    "miaoxing/app": "@dev"
   },
   "autoload": {
     "psr-4": {
