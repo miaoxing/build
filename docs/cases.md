@@ -92,66 +92,6 @@ if (!$this->user) {
 
 #### 问题6
 
-htmllint检查JS模板文件时,如xxx/adminOrdersShowItem.php,会出现大量的无意义提示
-
-如
-
-```
-xxx/adminOrdersShowItem.php: line 2, col 24, the `foundGroupBuying` attribute is not double quoted
-xxx/adminOrdersShowItem.php: line 2, col 4, attribute names must match the format: dash
-xxx/adminOrdersShowItem.php: line 2, col 30, attribute values cannot be empty
-xxx/adminOrdersShowItem.php: line 10, col 54, the `!` attribute is not double quoted
-```
-
-原因: 模板文件中的`<%`导致html标签解析错误
-
-解决: 先在模板文件头部增加配置,跳过检查.待以后升级模板引擎或配置,以支持检查
-
-```html
-<!-- htmllint preset="none" -->
-<!-- htmllint tag-name-match="false" -->
-```
-
----
-
-#### 问题7
-
-htmllint检测到style标签不可使用,但style内都是动态生成的内容
-
-解决: 在style标签前面关闭检查,后面再启用
-
-```html
-<!-- htmllint tag-bans="false" -->
-<style>
-  a, a:hover {
-    color: <?= $color ?>;
-  }
-</style>
-<!-- htmllint tag-bans="$previous" -->
-```
-
----
-
-#### 问题8
-
-htmllint检测到table头部不可使用style属性
-
-```html
-<th style="width: 80px">订单总数</th>
-```
-
-解决: 使用.t-*类(text width)代替, *表示当前位置的文本数量,如
-
-a. 姓名一般是3个字,等于3个文本宽度,使用t-3
-
-b. 手机有11位数字,等于6个文本宽度,使用t-6
-
-```html
-<th class="t-4">订单总额</th>
-```
-
-#### 问题9
-
 phpcs检测到的问题是由外部引起的,如外部的类
 
 解决: 使用特定的标识屏蔽问题

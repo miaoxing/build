@@ -18,7 +18,6 @@ bash "${BASH_SOURCE[0]%/*}/phpcs.sh"
 bash "${BASH_SOURCE[0]%/*}/phpmd.sh"
 bash "${BASH_SOURCE[0]%/*}/stylelint.sh"
 bash "${BASH_SOURCE[0]%/*}/eslint.sh"
-bash "${BASH_SOURCE[0]%/*}/htmllint.sh"
 php "${BASH_SOURCE[0]%/*}/check-migration.php"
 php "${BASH_SOURCE[0]%/*}/check-inline-script.php" $3
 
