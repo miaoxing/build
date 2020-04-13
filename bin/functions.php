@@ -42,7 +42,7 @@ function format($args)
 
 function getTables()
 {
-    return wei()->db->select('information_schema.tables', [
+    return wei()->db->selectAll('information_schema.tables', [
         'TABLE_TYPE' => 'BASE TABLE',
         'TABLE_SCHEMA' => wei()->db->getDbname(),
     ], 'TABLE_NAME');
