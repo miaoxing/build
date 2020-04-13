@@ -35,12 +35,12 @@
 
   <rule ref="rulesets/naming.xml/ShortVariable">
     <properties>
-      <property name="exceptions" value="x,y,db,e,fn,id,ip,to,ua,up,js"/>
+      <property name="exceptions" value="x,y,db,e,fn,id,ip,to,ua,up,js,v,qb,ds,op"/>
     </properties>
   </rule>
   <rule ref="rulesets/naming.xml/ShortMethodName">
     <properties>
-      <property name="exceptions" value="id,up,to,on"/>
+      <property name="exceptions" value="id,up,to,on,v"/>
     </properties>
   </rule>
   <rule ref="rulesets/naming.xml/BooleanGetMethodName" />
@@ -50,11 +50,11 @@
   <rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod" />
   <!--<rule ref="rulesets/unusedcode.xml/UnusedFormalParameter" />-->
 
-  <rule ref="plugins/plugin/resources/rulesets/phpmd-extension/cleancode.xml/ConstructorNewOperator" />
-  <rule ref="plugins/plugin/resources/rulesets/phpmd-extension/cleancode.xml/PublicFieldDeclaration" />
-  <!--<rule ref="plugins/plugin/resources/rulesets/phpmd-extension/cleancode.xml/ReturnStatement" />-->
+  <rule ref="plugins/build/resources/rulesets/phpmd-extension/cleancode.xml/ConstructorNewOperator" />
+  <rule ref="plugins/build/resources/rulesets/phpmd-extension/cleancode.xml/PublicFieldDeclaration" />
+  <!--<rule ref="plugins/build/resources/rulesets/phpmd-extension/cleancode.xml/ReturnStatement" />-->
 
-  <rule ref="plugins/plugin/resources/rulesets/phpmd-extension/naming.xml/ClassNameSuffix" />
-  <!--<rule ref="plugins/plugin/resources/rulesets/phpmd-extension/naming.xml/ControllerMethodName" />-->
-  <!--<rule ref="plugins/plugin/resources/rulesets/phpmd-extension/naming.xml/MethodName" />-->
+  <rule ref="plugins/build/resources/rulesets/phpmd-extension/naming.xml/ClassNameSuffix" />
+  <!--<rule ref="plugins/build/resources/rulesets/phpmd-extension/naming.xml/ControllerMethodName" />-->
+  <!--<rule ref="plugins/build/resources/rulesets/phpmd-extension/naming.xml/MethodName" />-->
 </ruleset>

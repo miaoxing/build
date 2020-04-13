@@ -10,7 +10,7 @@ The Unused Code Ruleset contains a collection of rules that find unused code.
   <rule name="UnusedLocalVariable"
         since="0.2"
         message="Avoid unused local variables such as '{0}'."
-        class="Miaoxing\Bpp\Rule\UnusedLocalVariable"
+        class="Miaoxing\Build\Rule\UnusedLocalVariable"
         externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable">
     <description>
       Detects when a local variable is declared and/or assigned, but not used.
@@ -37,7 +37,7 @@ class Foo {
   <rule name="UnusedFormalParameter"
         since="0.2"
         message="Avoid unused parameters such as '{0}'."
-        class="Miaoxing\Bpp\Rule\UnusedFormalParameter"
+        class="Miaoxing\Build\Rule\UnusedFormalParameter"
         externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedformalparameter">
     <description>
       Avoid passing parameters to methods or constructors and then not using those parameters.
