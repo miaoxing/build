@@ -12,7 +12,7 @@ fi
 report="reports/phpmd.txt"
 command="vendor/bin/phpmd . text $config \
 --reportfile-text ${report} \
---exclude vendor,src/Lib,public/comps,public/libs \
+--exclude vendor,plugins,docs,src/Lib,public/comps,public/libs \
 --ignore-violations-on-exit"
 info "${command}";
 
