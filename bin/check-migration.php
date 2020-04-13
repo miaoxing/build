@@ -6,7 +6,6 @@ $wei = init();
 
 // 2. 初始化数据库
 $db = $wei->db;
-$db->useDb('app');
 
 // 3. 先清空数据表,确保不会受Data truncated for column之类的影响
 $tables = getTables();
@@ -14,7 +13,7 @@ foreach ($tables as $table) {
     if ($table['TABLE_NAME'] == 'migrations') {
         continue;
     }
-    $wei->db->query("TRUNCATE TABLE app." . $table['TABLE_NAME']);
+    $wei->db->query('TRUNCATE TABLE ' . $table['TABLE_NAME']);
 }
 
 // 4. 运行全部rollback的SQL
@@ -28,11 +27,11 @@ try {
 }
 
 // 5. 检查数据表
-$allowTables = ['apps', 'migrations', 'user'];
+$allowTables = ['apps', 'migrations', 'users'];
 $leftTables = array_column(getTables(), 'TABLE_NAME');
 $leftTables = array_diff($leftTables, $allowTables);
 if ($leftTables) {
-    err('运行rollback后存在未删除的数据表:' . implode(',', $leftTables));
+    err('运行 rollback 后存在未删除的数据表: ' . implode(', ', $leftTables));
 } else {
-    suc('运行rollback成功');
+    suc('运行 rollback 成功');
 }

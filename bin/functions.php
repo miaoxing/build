@@ -46,7 +46,7 @@ function getTables()
         ->select('TABLE_NAME')
         ->where([
             'TABLE_TYPE' => 'BASE TABLE',
-            'TABLE_SCHEMA' => 'app',
+            'TABLE_SCHEMA' => wei()->db->getDbname(),
         ])
         ->fetchAll();
 
