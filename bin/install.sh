@@ -1,7 +1,9 @@
 #!/bin/bash
 
+composer install --no-interaction
+
 # Set Miaoxing coding standards
-vendor/bin/phpcs --config-set installed_paths plugins/coding-standards
+vendor/bin/phpcs --config-set installed_paths vendor/miaoxing/coding-standards
 vendor/bin/phpcs -i
 
 # Make sure package.json exists

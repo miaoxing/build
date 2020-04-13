@@ -13,17 +13,16 @@ fi
 mkdir -p reports
 PATH=~/.composer/vendor/bin:$PATH
 
-php "${BASH_SOURCE[0]%/*}/install.php"
-php "${BASH_SOURCE[0]%/*}/create-tests.php"
+# TODO 更改为 g:test 命令
+#php "${BASH_SOURCE[0]%/*}/create-tests.php"
 
-if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then
+if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then
   bash "${BASH_SOURCE[0]%/*}/phpunit.sh" $@
   bash "${BASH_SOURCE[0]%/*}/phpcs.sh"
   bash "${BASH_SOURCE[0]%/*}/phpmd.sh"
   bash "${BASH_SOURCE[0]%/*}/stylelint.sh"
   bash "${BASH_SOURCE[0]%/*}/eslint.sh"
   php "${BASH_SOURCE[0]%/*}/check-migration.php"
-  php "${BASH_SOURCE[0]%/*}/check-inline-script.php" $3
 else
   bash "${BASH_SOURCE[0]%/*}/phpunit.sh"
 fi
@@ -51,7 +50,7 @@ if [ "$detail" == "" ]; then
 fi
 
 # 如果允许失败则不创建issue
-allow_failures=("7.0" "7.1" "7.2" "nightly")
+allow_failures=("7.2" "7.3" "nightly")
 if [[ " ${allow_failures[@]} " =~ " ${TRAVIS_PHP_VERSION} " ]]; then
   exit 1
 fi
