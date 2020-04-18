@@ -23,7 +23,7 @@ try {
         'target' => $migrations[0]['id']
     ]);
 } catch (\Exception $e) {
-    return err((string) $e);
+    return build_err((string) $e);
 }
 
 // 5. 检查数据表
@@ -31,7 +31,7 @@ $allowTables = ['apps', 'migrations', 'users'];
 $leftTables = array_column(getTables(), 'TABLE_NAME');
 $leftTables = array_diff($leftTables, $allowTables);
 if ($leftTables) {
-    err('运行 rollback 后存在未删除的数据表: ' . implode(', ', $leftTables));
+    build_err('运行 rollback 后存在未删除的数据表: ' . implode(', ', $leftTables));
 } else {
-    suc('运行 rollback 成功');
+    build_suc('运行 rollback 成功');
 }

@@ -1,6 +1,6 @@
 <?php
 
-function suc($message, $args = null, $args2 = null)
+function build_suc($message, $args = null, $args2 = null)
 {
     $message = format(func_get_args());
     echo $message . PHP_EOL;
@@ -11,7 +11,7 @@ function suc($message, $args = null, $args2 = null)
 /**
  * @SuppressWarnings(PHPMD)
  */
-function err($message, $args = null, $args2 = null)
+function build_err($message, $args = null, $args2 = null)
 {
     $message = format(func_get_args());
     echo $message . PHP_EOL;
