@@ -18,6 +18,7 @@ PATH=~/.composer/vendor/bin:$PATH
 
 if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then
   bash "${BASH_SOURCE[0]%/*}/phpunit.sh" $@
+  bash "${BASH_SOURCE[0]%/*}/php-cs-fixer.sh"
   bash "${BASH_SOURCE[0]%/*}/phpcs.sh"
   bash "${BASH_SOURCE[0]%/*}/phpmd.sh"
   bash "${BASH_SOURCE[0]%/*}/stylelint.sh"
