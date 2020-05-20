@@ -10,7 +10,7 @@ $db = $wei->db;
 // 3. 先清空数据表,确保不会受Data truncated for column之类的影响
 $tables = getTables();
 foreach ($tables as $table) {
-    if ($table['TABLE_NAME'] == 'migrations') {
+    if ('migrations' == $table['TABLE_NAME']) {
         continue;
     }
     $wei->db->query('TRUNCATE TABLE ' . $table['TABLE_NAME']);
